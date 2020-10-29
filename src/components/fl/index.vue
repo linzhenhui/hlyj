@@ -40,7 +40,6 @@
       <van-tabbar-item to="/" icon="shop-o">首页</van-tabbar-item>
       <van-tabbar-item to="fl" icon="apps-o">分类</van-tabbar-item>
       <van-tabbar-item to="car" icon="shopping-cart-o">购物车</van-tabbar-item>
-      <van-tabbar-item to="dd" icon="notes-o">订单</van-tabbar-item>
       <van-tabbar-item to="gr" icon="manager-o">个人中心</van-tabbar-item>
     </van-tabbar>
   </div>

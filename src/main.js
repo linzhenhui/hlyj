@@ -26,7 +26,7 @@ import {
     Checkbox,
     CheckboxGroup,
     RadioGroup,
-    Radio,
+    Radio,Field 
 } from 'vant';
 
 Vue.use(Tabbar)
@@ -51,6 +51,7 @@ Vue.use(Tabbar)
     .use(CheckboxGroup)
     .use(RadioGroup)
     .use(Radio)
+    .use(Field)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

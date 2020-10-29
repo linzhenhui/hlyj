@@ -5,6 +5,7 @@ import car from '@/components/car/index'
 import dd from '@/components/dd/index'
 import fl from '@/components/fl/index'
 import gr from '@/components/gr/index'
+import Load from '@/components/Load'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
             path: '/gr',
             name: 'gr',
             component: gr
+        },
+        {
+            path: '/Login',
+            name: 'Login',
+            component: Load
         }
     ]
 })

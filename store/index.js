@@ -6,14 +6,18 @@ Vue.use(Vuex)
 
 //创建VueX对象
 const store = new Vuex.Store({
-    state:{
+    state: {
         //存放的键值对就是所要管理的状态
-        goods: []
+        goods: [],
+        login: false
     },
-    mutations:{
+    mutations: {
         //es6语法，等同edit:funcion(){...}
-        edit(state,data){
-            state.goods.push(data) 
+        edit(state, data) {
+            state.goods.push(data)
+        },
+        loginIn(state) {
+            state.login = true
         }
     }
 })
