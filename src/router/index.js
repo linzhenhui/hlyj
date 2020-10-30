@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home/index'
-import car from '@/components/car/index'
-import dd from '@/components/dd/index'
-import fl from '@/components/fl/index'
-import gr from '@/components/gr/index'
+import Home from '@/components/Home'
+import car from '@/components/Car'
+import dd from '@/components/Dd'
+import fl from '@/components/Fl'
+import gr from '@/components/Gr'
 import Load from '@/components/Load'
 
 Vue.use(Router)

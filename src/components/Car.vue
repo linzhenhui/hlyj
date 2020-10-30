@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import img from "../../assets/1.jpg";
+import img from "../assets/1.jpg";
 export default {
   data() {
     return {

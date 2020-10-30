@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <p class="titie">新联心</p>
-    <van-search placeholder="请输入搜索关键词" v-model="value" />
+    <van-search placeholder="请输入搜索关键词" />
     <van-cell-group>
       <van-swipe :autoplay="3000" indicator-color="white">
         <van-swipe-item>1</van-swipe-item>
@@ -11,7 +11,7 @@
       </van-swipe>
     </van-cell-group>
     <van-cell-group>
-      <van-cell>
+      <van-cell class="address">
         <img class="tx" :src="images" alt="" />
         <span>定位地址</span>
       </van-cell>
@@ -24,7 +24,7 @@
       />
     </van-cell-group>
     <van-cell-group>
-      <van-row type="flex" justify="space-around">
+      <van-row type="flex" justify="space-around" class="flground">
         <van-col span="6">
           <img class="tx" :src="images" alt="" />
           <p>蛋糕面点</p>
@@ -138,7 +138,7 @@
 </template>
 
 <script>
-import img from "../../assets/1.jpg";
+import img from "../assets/1.jpg";
 export default {
   name: "home",
   data() {
@@ -150,20 +150,28 @@ export default {
 };
 </script>
 
-<style  >
+<style lang="less"  >
 #home {
   margin-bottom: 60px;
-}
-#home .van-swipe-item {
-  height: 4rem;
-  background: blueviolet;
-}
-.tx {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-}
-.flground img {
-  width: 20%;
+  .van-swipe-item {
+    height: 4rem;
+    background: blueviolet;
+  }
+  .address{
+    span{
+      line-height: 20px;
+    }
+  }
+  .tx {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+  }
+  .flground {
+    padding: 1rem 10px;
+    p {
+      font-size: 0.8rem;
+    }
+  }
 }
 </style>
