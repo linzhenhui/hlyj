@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from '../store'
+// import Toast from '@/components/layer/Toast.js'
+
 import {
     Tabbar,
     TabbarItem,
@@ -26,7 +28,12 @@ import {
     Checkbox,
     CheckboxGroup,
     RadioGroup,
-    Radio,Field ,Icon
+    Radio,
+    Field,
+    Icon,
+    Tag,
+    Sku,
+    Toast
 } from 'vant';
 
 Vue.use(Tabbar)
@@ -53,8 +60,9 @@ Vue.use(Tabbar)
     .use(Radio)
     .use(Field)
     .use(Icon)
+    .use(Tag).use(Sku).use(Toast)
 Vue.config.productionTip = false
-
+Vue.prototype.toast = Toast;
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

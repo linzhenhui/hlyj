@@ -15,7 +15,7 @@ body,
 html {
   width: 100%;
   height: 100%;
-  color: #494949;
+  background: #f2f2f2;
 }
 * {
   margin: 0;
@@ -27,6 +27,7 @@ html {
   height: 100%;
   background: #f6f6f6;
   text-align: center;
+  font-family: PingFang SC;
 }
 .van-cell-group {
   margin: 10px;

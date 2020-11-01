@@ -1,25 +1,38 @@
 <template>
   <div id="home">
-    <p class="titie">新联心</p>
+    <van-cell-group class="adressgroud">
+      <van-cell class="address">
+        <van-row>
+          <van-col><img class="tx addressimg" :src="images" alt="" /></van-col>
+          <van-col offset="1" span="18">
+            <p class="address1" @click="RoutetTo('/Sh')">天汇世纪花苑-高-041</p>
+            <p>
+              <van-tag round plain color="#FFFFFF" type="success"
+                >团队数量：280</van-tag
+              >
+              <van-tag round plain color="#FFFFFF" type="success"
+                >下单数量：818</van-tag
+              >
+            </p>
+            <p class="addresstext">
+              <van-icon name="location" />
+              <span>新疆维吾尔自治区乌鲁木齐市磨沟区水磨沟街道米多超市</span>
+            </p>
+          </van-col>
+        </van-row>
+      </van-cell>
+    </van-cell-group>
     <van-search placeholder="请输入搜索关键词" />
     <van-cell-group>
-      <van-swipe :autoplay="3000" indicator-color="white">
-        <van-swipe-item>1</van-swipe-item>
-        <van-swipe-item>2</van-swipe-item>
-        <van-swipe-item>3</van-swipe-item>
-        <van-swipe-item>4</van-swipe-item>
+      <van-swipe :autoplay="3000" indicator-color="white" class="swipe">
+        <van-swipe-item
+          ><img src="../assets/组 3.png" alt="" srcset=""
+        /></van-swipe-item>
       </van-swipe>
     </van-cell-group>
     <van-cell-group>
-      <van-cell class="address">
-        <img class="tx" :src="images" alt="" />
-        <span>定位地址</span>
-      </van-cell>
-      <van-cell>定位地址</van-cell>
-    </van-cell-group>
-    <van-cell-group>
       <van-notice-bar
-        text="足协杯战线连续第2年上演广州德比战，上赛季半决赛上恒大以两回合5-3的总比分淘汰富力。"
+        text="注意：开团时间为每日11时，截团时间为每日23时，次日…"
         left-icon="volume-o"
       />
     </van-cell-group>
@@ -31,103 +44,76 @@
         </van-col>
         <van-col span="6">
           <img class="tx" :src="images" alt="" />
-          <p>蛋糕面点</p>
+          <p>新鲜水果</p>
         </van-col>
         <van-col span="6">
           <img class="tx" :src="images" alt="" />
-          <p>蛋糕面点</p>
+          <p>零食休闲</p>
         </van-col>
         <van-col span="6">
           <img class="tx" :src="images" alt="" />
-          <p>蛋糕面点</p>
+          <p>海鲜</p>
         </van-col>
         <van-col span="6">
           <img class="tx" :src="images" alt="" />
-          <p>蛋糕面点</p>
+          <p>粮油调味</p>
         </van-col>
         <van-col span="6">
           <img class="tx" :src="images" alt="" />
-          <p>蛋糕面点</p>
+          <p>肉禽蛋品</p>
         </van-col>
         <van-col span="6">
           <img class="tx" :src="images" alt="" />
-          <p>蛋糕面点</p>
+          <p>新鲜蔬菜</p>
         </van-col>
         <van-col span="6">
           <img class="tx" :src="images" alt="" />
-          <p>蛋糕面点</p>
+          <p>冰鲜冻品</p>
         </van-col>
       </van-row>
     </van-cell-group>
-    <van-cell-group>
+    <van-cell-group class="goods">
       <van-tabs>
-        <van-tab title="标签 1">
-          <van-card
-            num="2"
-            price="2.00"
-            desc="描述信息"
-            title="商品标题"
-            :thumb="images"
-          />
-          <van-card
-            num="2"
-            price="2.00"
-            desc="描述信息"
-            title="商品标题"
-            :thumb="images"
-          />
-        </van-tab>
-        <van-tab title="标签 1">
-          <van-card
-            num="2"
-            price="2.00"
-            desc="描述信息"
-            title="商品标题"
-            :thumb="images"
-          />
-          <van-card
-            num="2"
-            price="2.00"
-            desc="描述信息"
-            title="商品标题"
-            :thumb="images"
-          />
-        </van-tab>
-        <van-tab title="标签 1">
-          <van-card
-            num="2"
-            price="2.00"
-            desc="描述信息"
-            title="商品标题"
-            :thumb="images"
-          />
-          <van-card
-            num="2"
-            price="2.00"
-            desc="描述信息"
-            title="商品标题"
-            :thumb="images"
-          />
-        </van-tab>
-        <van-tab title="标签 1">
-          <van-card
-            num="2"
-            price="2.00"
-            desc="描述信息"
-            title="商品标题"
-            :thumb="images"
-          />
-          <van-card
-            num="2"
-            price="2.00"
-            desc="描述信息"
-            title="商品标题"
-            :thumb="images"
-          />
+        <van-tab
+          v-for="(item, index) in goodslist"
+          :key="index"
+          :title="item.title"
+        >
+          <div v-for="(good, i) in item.goods" :key="i" class="good">
+            <van-card
+              centered="false"
+              :price="good.price"
+              :tags="good.tags"
+              :desc="'已售' + good.over"
+              :title="good.name"
+              :thumb="good.img"
+              :origin-price="good.beforprice"
+            >
+              <div slot="tags" class="card__tags">
+                <van-tag
+                  plain
+                  type="success"
+                  v-for="(tag, n) in good.tags"
+                  :key="n"
+                >
+                  {{ tag }}
+                </van-tag>
+              </div>
+              <div slot="footer">
+                <van-button size="mini" round class="color" @click="buy(item)"
+                  >购买</van-button
+                >
+              </div>
+            </van-card>
+            <van-row class="good_bottom" type="flex" justify="space-around">
+              <van-col>售卖：{{ good.time }}</van-col>
+              <van-col>提货：{{ good.date }}</van-col>
+            </van-row>
+          </div>
         </van-tab>
       </van-tabs>
     </van-cell-group>
-
+    <skuVue :showSoldout="showSoldout" />
     <van-tabbar v-model="active">
       <van-tabbar-item to="/" icon="shop-o">首页</van-tabbar-item>
       <van-tabbar-item to="fl" icon="apps-o">分类</van-tabbar-item>
@@ -139,27 +125,299 @@
 
 <script>
 import img from "../assets/1.jpg";
+import skuVue from "./sku";
 export default {
+  components: {
+    skuVue,
+  },
   name: "home",
   data() {
     return {
       active: 0,
       images: img,
+      showSoldout: false,
+      goodslist: [
+        {
+          title: "全部",
+          goods: [
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+          ],
+        },
+        {
+          title: "推荐",
+          goods: [
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+          ],
+        },
+        {
+          title: "新品",
+          goods: [
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+          ],
+        },
+        {
+          title: "热卖",
+          goods: [
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+          ],
+        },
+        {
+          title: "促销",
+          goods: [
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+          ],
+        },
+        {
+          title: "生鲜",
+          goods: [
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+            {
+              img: img,
+              isoff: false,
+              over: 200,
+              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+              tags: ["推荐", "新品", "热卖"],
+              price: 29.5,
+              beforprice: 30.5,
+              time: "10-23 11:00 - 10-23 23:00",
+              date: "2020-10-24",
+            },
+          ],
+        },
+      ],
     };
+  },
+  methods: {
+    RoutetTo(name, data) {
+      this.$router.push({
+        path: name, //这个path就是你在router/index.js里边配置的路径
+        query: data,
+      });
+    },
   },
 };
 </script>
 
 <style lang="less"  >
 #home {
-  margin-bottom: 60px;
-  .van-swipe-item {
-    height: 4rem;
-    background: blueviolet;
+  .van-card__content {
+    text-align: left;
   }
-  .address{
-    span{
-      line-height: 20px;
+  margin-bottom: 60px;
+  .adressgroud {
+    margin: 0;
+    .tx {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    > div {
+      background-color: #1b8d3a;
+    }
+    .address {
+      padding: 1rem 1rem;
+      .van-tag {
+        opacity: 0.6;
+        background-color: rgba(220, 38, 38, 0);
+      }
+      .address1 {
+        font-size: 1rem;
+        font-family: PingFang SC;
+        font-weight: bold;
+        color: #ffffff;
+      }
+    }
+    .addresstext {
+      span {
+        opacity: 0.6;
+        color: white;
+        font-size: 12px;
+      }
+    }
+  }
+  .van-swipe-item {
+    img {
+      width: 100%;
     }
   }
   .tx {
@@ -170,7 +428,40 @@ export default {
   .flground {
     padding: 1rem 10px;
     p {
+      font-size: 0.7rem;
+      margin-bottom: 10px;
+      font-family: PingFang SC;
+      font-weight: 500;
+    }
+  }
+  .van-cell-group,
+  .van-tabs__nav {
+    background: #f2f2f2;
+  }
+  .goods {
+    .van-card__title {
       font-size: 0.8rem;
+      font-family: PingFang SC;
+      font-weight: 800;
+    }
+    .van-card__price {
+      color: #1b8d3a;
+      font-weight: 800;
+    }
+    .good {
+      position: relative;
+      box-sizing: border-box;
+      padding: 8px 16px;
+      color: #323233;
+      font-size: 12px;
+      background-color: #fafafa;
+      margin: 10px;
+      border-radius: 10px;
+      .good_bottom {
+        font-size: 0.3rem;
+        font-weight: 500;
+        color: #666666;
+      }
     }
   }
 }

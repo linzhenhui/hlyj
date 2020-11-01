@@ -6,6 +6,7 @@ import dd from '@/components/Dd'
 import fl from '@/components/Fl'
 import gr from '@/components/Gr'
 import Load from '@/components/Load'
+import Sh from '@/components/SH'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ export default new Router({
             path: '/Login',
             name: 'Login',
             component: Load
+        },
+        {
+            path: '/Sh',
+            name: 'SH',
+            component: Sh
         }
     ]
 })

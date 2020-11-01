@@ -18,15 +18,29 @@
           </li>
         </ul>
       </van-col>
-      <van-col class="white" span="18">
+      <van-col class="white show" span="18">
+        <div class="tip">{{ items[mainActiveIndex].text }}</div>
         <van-card
-          v-for="(item, index) in goods[mainActiveIndex]"
+          v-for="(good, index) in goods[mainActiveIndex]"
           :key="index"
-          :desc="'已售' + item.sum"
-          :price="item.price"
-          :title="item.name"
-          :thumb="item.img"
+          centered="false"
+          :price="good.price"
+          :tags="good.tags"
+          :desc="'已售' + good.over"
+          :title="good.name"
+          :thumb="good.img"
+          :origin-price="good.beforprice"
         >
+          <div slot="tags" class="card__tags">
+            <van-tag
+              plain
+              type="success"
+              v-for="(tag, n) in good.tags"
+              :key="n"
+            >
+              {{ tag }}
+            </van-tag>
+          </div>
           <div slot="footer">
             <van-button size="mini" round class="color" @click="buy(item)"
               >购买</van-button
@@ -212,6 +226,21 @@ export default {
   }
   .color {
     color: #f0fef5;
+  }
+  .show {
+    padding-left: 1rem;
+    .tip {
+      width: 3rem;
+      height: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      font-weight: 500;
+      color: #1b8d3a;
+      background: rgba(27, 141, 58, 0.2);
+      border-radius: 4px;
+    }
   }
 }
 </style>
