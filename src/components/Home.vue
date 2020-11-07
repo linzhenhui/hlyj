@@ -368,12 +368,29 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.getShopGoodsTypeList();
+  },
   methods: {
     RoutetTo(name, data) {
       this.$router.push({
         path: name, //这个path就是你在router/index.js里边配置的路径
         query: data,
       });
+    },
+    getShopGoodsTypeList() {
+      fetch('http://39.100.233.170:8764/shopGoodsType/queryShopGoodsTypeList', {
+        method: "GET", // or 'PUT'
+        // body: JSON.stringify(data), // data can be `string` or {object}!
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+      })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((response) => {
+          console.log(response)
+        });
     },
   },
 };
