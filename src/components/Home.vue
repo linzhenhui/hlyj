@@ -81,7 +81,6 @@
         >
           <div v-for="(good, i) in item.goods" :key="i" class="good">
             <van-card
-              centered="false"
               :price="good.price"
               :tags="good.tags"
               :desc="'已售' + good.over"
