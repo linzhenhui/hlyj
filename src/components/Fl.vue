@@ -23,7 +23,6 @@
         <van-card
           v-for="(good, index) in goods[mainActiveIndex]"
           :key="index"
-          centered="false"
           :price="good.price"
           :tags="good.tags"
           :desc="'已售' + good.over"
@@ -189,6 +188,20 @@ export default {
         ],
       ],
     };
+  },
+  mounted() {
+    fetch(this.config.ip+'/shopGoodsType/queryShopGoodsTypeList', {
+      method: "GET", // or 'PUT'
+      // body: JSON.stringify(data), // data can be `string` or {object}!
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+    })
+      .then((res) => res.json())
+      .catch((error) => console.error("Error:", error))
+      .then((response) =>{
+        this.items=response.list
+      });
   },
   methods: {
     onNavClick(index) {

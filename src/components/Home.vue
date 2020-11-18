@@ -31,44 +31,25 @@
       </van-swipe>
     </van-cell-group>
     <van-cell-group>
-      <van-notice-bar
-        text="注意：开团时间为每日11时，截团时间为每日23时，次日…"
-        left-icon="volume-o"
-      />
+      <van-notice-bar :text="ShopHornListContext" left-icon="volume-o" />
     </van-cell-group>
     <van-cell-group>
       <van-row type="flex" justify="space-around" class="flground">
-        <van-col span="6">
-          <img class="tx" :src="images" alt="" />
-          <p>蛋糕面点</p>
-        </van-col>
-        <van-col span="6">
-          <img class="tx" :src="images" alt="" />
-          <p>新鲜水果</p>
-        </van-col>
-        <van-col span="6">
-          <img class="tx" :src="images" alt="" />
-          <p>零食休闲</p>
-        </van-col>
-        <van-col span="6">
-          <img class="tx" :src="images" alt="" />
-          <p>海鲜</p>
-        </van-col>
-        <van-col span="6">
-          <img class="tx" :src="images" alt="" />
-          <p>粮油调味</p>
-        </van-col>
-        <van-col span="6">
-          <img class="tx" :src="images" alt="" />
-          <p>肉禽蛋品</p>
-        </van-col>
-        <van-col span="6">
-          <img class="tx" :src="images" alt="" />
-          <p>新鲜蔬菜</p>
-        </van-col>
-        <van-col span="6">
-          <img class="tx" :src="images" alt="" />
-          <p>冰鲜冻品</p>
+        <van-col
+          span="6"
+          v-for="(item, index) in ShopGoodsTypeList"
+          :key="index"
+        >
+          <img
+            class="tx"
+            :src="
+              item.imgUrl
+                ? 'http://39.100.233.170:8888/img/' + item.imgUrl
+                : images
+            "
+            alt=""
+          />
+          <p>{{ item.name }}</p>
         </van-col>
       </van-row>
     </van-cell-group>
@@ -79,15 +60,15 @@
           :key="index"
           :title="item.title"
         >
-          <div v-for="(good, i) in item.goods" :key="i" class="good">
+          <div v-for="(good, i) in goods" :key="i" class="good">
             <van-card
-              centered="false"
               :price="good.price"
               :tags="good.tags"
-              :desc="'已售' + good.over"
-              :title="good.name"
-              :thumb="good.img"
-              :origin-price="good.beforprice"
+              :desc="good.goodsDetails"
+              :num="good.repertoryNum"
+              :title="good.goodsName"
+              :thumb="'http://39.100.233.170:8888/img/' + good.imgPath"
+              :origin-price="good.originalSprice"
             >
               <div slot="tags" class="card__tags">
                 <van-tag
@@ -100,14 +81,14 @@
                 </van-tag>
               </div>
               <div slot="footer">
-                <van-button size="mini" round class="color" @click="buy(item)"
+                <van-button size="mini" round class="color" @click="buy(good)"
                   >购买</van-button
                 >
               </div>
             </van-card>
             <van-row class="good_bottom" type="flex" justify="space-around">
-              <van-col>售卖：{{ good.time }}</van-col>
-              <van-col>提货：{{ good.date }}</van-col>
+              <van-col>开始：{{ good.rushBeginTime }}</van-col>
+              <van-col>截止：{{ good.rushEndTime }}</van-col>
             </van-row>
           </div>
         </van-tab>
@@ -135,45 +116,47 @@ export default {
     return {
       active: 0,
       images: img,
+      ShopHornList: [{}],
       showSoldout: false,
+      ShopGoodsTypeList: [],
+      goods: [
+        {
+          img: img,
+          isoff: false,
+          over: 200,
+          name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+          tags: ["推荐", "新品", "热卖"],
+          price: 29.5,
+          beforprice: 30.5,
+          time: "10-23 11:00 - 10-23 23:00",
+          date: "2020-10-24",
+        },
+        {
+          img: img,
+          isoff: false,
+          over: 200,
+          name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+          tags: ["推荐", "新品", "热卖"],
+          price: 29.5,
+          beforprice: 30.5,
+          time: "10-23 11:00 - 10-23 23:00",
+          date: "2020-10-24",
+        },
+        {
+          img: img,
+          isoff: false,
+          over: 200,
+          name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
+          tags: ["推荐", "新品", "热卖"],
+          price: 29.5,
+          beforprice: 30.5,
+          time: "10-23 11:00 - 10-23 23:00",
+          date: "2020-10-24",
+        },
+      ],
       goodslist: [
         {
           title: "全部",
-          goods: [
-            {
-              img: img,
-              isoff: false,
-              over: 200,
-              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
-              tags: ["推荐", "新品", "热卖"],
-              price: 29.5,
-              beforprice: 30.5,
-              time: "10-23 11:00 - 10-23 23:00",
-              date: "2020-10-24",
-            },
-            {
-              img: img,
-              isoff: false,
-              over: 200,
-              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
-              tags: ["推荐", "新品", "热卖"],
-              price: 29.5,
-              beforprice: 30.5,
-              time: "10-23 11:00 - 10-23 23:00",
-              date: "2020-10-24",
-            },
-            {
-              img: img,
-              isoff: false,
-              over: 200,
-              name: "太黑黑猪夹心肉糜（馄饨饺子肉馅）300g",
-              tags: ["推荐", "新品", "热卖"],
-              price: 29.5,
-              beforprice: 30.5,
-              time: "10-23 11:00 - 10-23 23:00",
-              date: "2020-10-24",
-            },
-          ],
         },
         {
           title: "推荐",
@@ -368,8 +351,17 @@ export default {
       ],
     };
   },
+  computed: {
+    ShopHornListContext: function () {
+      let str = "";
+      this.ShopHornList.map((item) => {
+        str += item.content + ";";
+      });
+      return str;
+    },
+  },
   mounted() {
-    this.getShopGoodsTypeList();
+    this.getquery();
   },
   methods: {
     RoutetTo(name, data) {
@@ -378,8 +370,9 @@ export default {
         query: data,
       });
     },
-    getShopGoodsTypeList() {
-      fetch('http://39.100.233.170:8764/shopGoodsType/queryShopGoodsTypeList', {
+    getquery() {
+      fetch("http://39.100.233.170:8764/shopGoodsType/queryShopGoodsTypeList", {
+        // 查询商品类型信息
         method: "GET", // or 'PUT'
         // body: JSON.stringify(data), // data can be `string` or {object}!
         headers: new Headers({
@@ -389,8 +382,41 @@ export default {
         .then((res) => res.json())
         .catch((error) => console.error("Error:", error))
         .then((response) => {
-          console.log(response)
+          this.ShopGoodsTypeList = response.list;
         });
+      fetch("http://39.100.233.170:8764/shopGoodsInfo/queryShopGoodsInfoList", {
+        // 查询商品信息信息
+        method: "GET", // or 'PUT'
+        // body: JSON.stringify(data), // data can be `string` or {object}!
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+      })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((response) => {
+          console.log(response.list);
+          this.goods = response.list;
+        });
+      fetch("http://39.100.233.170:8764/shopHorn/queryShopHornList", {
+        //查询公告管理信息
+        method: "GET", // or 'PUT'
+        // body: JSON.stringify(data), // data can be `string` or {object}!
+        headers: new Headers({
+          "Content-Type": "application/json",
+        }),
+      })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error))
+        .then((response) => {
+          this.ShopHornList = response.list;
+        });
+    },
+    
+    buy(data) {
+      data.indexNum = 1;
+      data.price = parseFloat(data.price);
+      this.$store.commit("edit", data);
     },
   },
 };

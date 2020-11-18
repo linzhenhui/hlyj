@@ -14,32 +14,33 @@
           @click="selectGoods(item)"
         ></div>
         <div class="shoppingImg">
-          <img :src="item.img" alt="" />
+          <img :src="'http://39.100.233.170:8888/img/' + item.imgPath" alt="" />
         </div>
         <div class="itemRight">
-          <p class="title">{{ item.name }}</p>
+          <p class="title">{{ item.goodsName }}</p>
           <div class="numAndMoney">
             <p>￥{{ item.price }}</p>
             <div class="numberControl">
               <a class="btn" @click="numDel(item, index)">-</a>
-              <input type="text" v-model="item.num" readonly="readonly" />
+              <input type="text" v-model="item.indexNum" readonly="readonly" />
               <a class="btn" @click="numAdd(item, index)">+</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="bottomMain">
-      <!--底部固定栏-->
-      <div
-        class="selectCircle"
-        :class="{ checked: allSelect }"
-        @click="allGoodsSelect"
-      ></div>
-      <span style="padding: 10px">全选</span>
-      <button class="bottombtn2" @click="delGoods">删除</button>
-      <button class="bottombtn1" @click="buyGoods">{{ sum }}&nbsp;结算</button>
-    </div>
+    <van-row class="bottomMain" type="flex" justify="space-between">
+      <van-col @click="allGoodsSelect" class="checkall" span='4'>
+        <div class="selectCircle" :class="{ checked: allSelect }"></div>
+        <span style="line-height: 15px">全选</span></van-col
+      >
+      <van-col  span='12'>
+        <button class="bottombtn2" @click="delGoods">删除</button>
+        <button class="bottombtn1" @click="buyGoods">
+          {{ sum }}&nbsp;结算
+        </button></van-col
+      >
+    </van-row>
   </div>
 </template>
 
@@ -55,6 +56,7 @@ export default {
   },
   created() {
     this.shoppingList = this.$store.state.goods;
+    console.log(this.shoppingList);
   },
   methods: {
     onClickLeft() {
@@ -65,9 +67,9 @@ export default {
       item.isSelect = !item.isSelect; //改变选择状态
       this.allSelect = false;
       if (item.isSelect == true) {
-        this.sum = this.sum + item.price * item.num;
+        this.sum = this.sum + item.price * item.indexNum;
       } else {
-        this.sum = this.sum - item.price * item.num;
+        this.sum = this.sum - item.price * item.indexNum;
       } //结算处商品总额计算
     },
     allGoodsSelect() {
@@ -78,30 +80,31 @@ export default {
         for (var i = 0; i < this.shoppingList.length; i++) {
           this.shoppingList[i].isSelect = true;
           this.sum =
-            this.sum + this.shoppingList[i].price * this.shoppingList[i].num;
+            this.sum +
+            this.shoppingList[i].price * this.shoppingList[i].indexNum;
         }
       } else {
         for (var i = 0; i < this.shoppingList.length; i++) {
           this.sum = 0;
-          // this.sum - this.shoppingList[i].price * this.shoppingList[i].num;
+          // this.sum - this.shoppingList[i].price * this.shoppingList[i].indexNum;
           this.shoppingList[i].isSelect = false;
         }
       } //结算处商品总额计算
     },
     numAdd(item, index) {
       //商品数量增加
-      item.num++;
+      item.indexNum++;
       if (item.isSelect == true) {
         this.sum = this.sum + item.price;
       } //已选择商品增加数量，需要增加总额
     },
     numDel(item, index) {
       //商品数量减少
-      item.num--;
+      item.indexNum--;
       if (item.isSelect == true) {
         this.sum = this.sum - item.price;
       } //已选择商品减少数量，需要减少总额
-      if (item.num == 0) {
+      if (item.indexNum == 0) {
         this.shoppingList.splice(index, 1);
       } //数量减少为0，需要删除对应数据
     },
@@ -153,7 +156,7 @@ export default {
     height: 15px;
     border: 1px solid #a7a5a5;
     border-radius: 50%;
-    margin: auto 0px auto 10px;
+    display: inline-block;
   }
   .shoppingImg {
     width: 100px;
@@ -197,6 +200,7 @@ export default {
     background: #fff;
     display: flex;
     padding: 10px;
+    font-size: 0.4rem;
   }
   .bottombtn1 {
     width: auto;
@@ -207,6 +211,7 @@ export default {
     border-radius: 25px;
     margin: 5px 0 0 10px;
     padding: 5px;
+    font-size: 0.4rem;
   }
   .bottombtn2 {
     width: 70px;
@@ -216,10 +221,16 @@ export default {
     background-color: #cecac7;
     border-radius: 25px;
     margin: 5px 0 0 20px;
+    font-size: 0.4rem;
   }
   .checked {
     background: #5eba87;
     border: 1px solid rgba(0, 0, 0, 0);
+  }
+  .checkall{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>
